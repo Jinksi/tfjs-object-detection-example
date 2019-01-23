@@ -8,6 +8,7 @@ window.onload = () => (modelPromise = cocoSsd.load());
 const video = document.getElementById("video");
 const c = document.getElementById("canvas");
 const context = c.getContext("2d");
+const button = document.getElementById("run");
 
 let result = null;
 
@@ -53,13 +54,15 @@ video.onplay = () => {
 };
 
 // Get webcam
-navigator.mediaDevices
-  .getUserMedia({
-    video: { width: window.innerWidth, height: window.innerHeight },
-    audio: false
-  })
-  .then(stream => {
-    video.srcObject = stream;
-    video.play();
-  })
-  .catch(console.error);
+button.onclick = () =>
+  navigator.mediaDevices
+    .getUserMedia({
+      video: { width: window.innerWidth, height: window.innerHeight },
+      audio: false
+    })
+    .then(stream => {
+      button.style.display = "none";
+      video.srcObject = stream;
+      video.play();
+    })
+    .catch(console.error);

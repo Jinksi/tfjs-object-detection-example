@@ -7,3 +7,8 @@ body {
   background: #212121;
   height: 100vh;
 }
+
+button {
+  font-size: 2rem;
+  cursor: pointer;
+}
