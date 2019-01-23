@@ -1,9 +1,10 @@
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 
 let modelPromise;
+let model;
 let baseModel = "mobilenet_v2";
 
-window.onload = () => (modelPromise = cocoSsd.load());
+window.onload = () => loadModel();
 
 const video = document.getElementById("video");
 const c = document.getElementById("canvas");
@@ -11,6 +12,14 @@ const context = c.getContext("2d");
 const button = document.getElementById("run");
 
 let result = null;
+
+const loadModel = async () => {
+  modelPromise = cocoSsd.load();
+  model = await modelPromise;
+  console.log("model loaded");
+  button.innerText = "Run";
+  button.disabled = false;
+};
 
 const runVideo = async videoElement => {
   let width = videoElement.videoWidth;
@@ -38,8 +47,6 @@ const runVideo = async videoElement => {
   }
 
   if (width && height) {
-    const model = await modelPromise;
-    console.log("model loaded");
     console.time("predict1");
     result = await model.detect(c);
     console.timeEnd("predict1");
@@ -62,6 +69,7 @@ button.onclick = () =>
     })
     .then(stream => {
       button.style.display = "none";
+      canvas.style.display = "block";
       video.srcObject = stream;
       video.play();
     })
