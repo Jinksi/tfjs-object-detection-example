@@ -35,11 +35,6 @@
     "yalc": "~1.0.0-pre.21"
   },
   "eslintConfig": {
-    "extends": "google",
-    "rules": {
-      "require-jsdoc": 0,
-      "valid-jsdoc": 0
-    },
     "env": {
       "es6": true
     },
